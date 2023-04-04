@@ -61,16 +61,18 @@ const App = () => {
           sx={{ borderRadius: 20, width: "fit-content", marginRight: 5 }}
           onClick={handleClickOpen}
         >
-          Add new report
+          New report
         </Button>
-        <Button
-          variant="contained"
-          color="success"
-          sx={{ borderRadius: 20, width: "fit-content" }}
-          onClick={handleClickOpenExport}
-        >
-          Export reports in pdf
-        </Button>
+        {reports?.length !== 0 && (
+          <Button
+            variant="contained"
+            color="success"
+            sx={{ borderRadius: 20, width: "fit-content" }}
+            onClick={handleClickOpenExport}
+          >
+            Export reports
+          </Button>
+        )}
         <AddReportDialog open={open} onClose={handleClose}></AddReportDialog>
         <ExportReportsDialog
           open={openExport}

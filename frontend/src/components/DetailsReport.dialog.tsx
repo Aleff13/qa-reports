@@ -118,8 +118,9 @@ export const EditReportDialog = ({
               label="Type"
               onChange={handleTypeChange}
             >
-              <MenuItem value={typeEnum.pr}>Pull Request</MenuItem>
+              <MenuItem value={typeEnum.pr}>Pull request</MenuItem>
               <MenuItem value={typeEnum.flag}>Flag</MenuItem>
+              <MenuItem value={typeEnum.bug}>Bug</MenuItem>
             </Select>
           </Box>
         </FormControl>

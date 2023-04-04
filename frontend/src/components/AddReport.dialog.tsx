@@ -101,7 +101,7 @@ export const AddReportDialog = ({ open, onClose }: SimpleDialogProps) => {
                 height: 50,
                 backgroundColor: "#1b5e20",
                 borderRadius: 10,
-                width: "50%",
+                width: "30%",
               }}
             />
             <Select
@@ -112,6 +112,7 @@ export const AddReportDialog = ({ open, onClose }: SimpleDialogProps) => {
             >
               <MenuItem value={typeEnum.pr}>Pull request</MenuItem>
               <MenuItem value={typeEnum.flag}>Flag</MenuItem>
+              <MenuItem value={typeEnum.bug}>Bug</MenuItem>
             </Select>
           </Box>
         </FormControl>

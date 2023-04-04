@@ -7,8 +7,9 @@ export interface IReport {
 }
 
 export enum typeEnum {
-  pr = "pr",
+  pr = "pull request",
   flag = "flag",
+  bug = "bug",
 }
 
 const apiUrl = "http://localhost:3000";

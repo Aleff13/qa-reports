@@ -15,8 +15,8 @@ export const ExportReportsDialog = ({
   onClose,
   reports,
 }: SimpleDialogProps) => {
-  const [initialDate, setInitialDate] = useState();
-  const [finalDate, setFinalDate] = useState();
+  const [initialDate, setInitialDate] = useState(0);
+  const [finalDate, setFinalDate] = useState(0);
 
   const handleInitialDateChange = (event: ChangeEvent) => {
     setInitialDate(event.target?.value || "");
@@ -27,13 +27,18 @@ export const ExportReportsDialog = ({
   };
 
   const onConfirm = async () => {
+    console.log(initialDate);
+    if (initialDate === 0 || finalDate === 0) {
+      generatePdf(reports);
+      return;
+    }
     const filteredResults = reports.filter(
       (report: IReport) =>
         report.recordDate >= new Date(initialDate).getTime() &&
         report.recordDate <= new Date(finalDate).getTime()
     );
     console.log({ filteredResults });
-    generatePdf(filteredResults);
+    generatePdf(filteredResults, initialDate, finalDate);
   };
 
   return (
@@ -88,8 +93,8 @@ export const ExportReportsDialog = ({
           </Box>
         </FormControl>
         <br></br>
-        <Button variant="contained" color="success" onClick={onConfirm}>
-          Exportar
+        <Button variant="contained" color="info" onClick={onConfirm}>
+          Export
         </Button>
         <br></br>
 

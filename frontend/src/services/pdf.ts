@@ -1,9 +1,14 @@
 import jsPDF from "jspdf";
-import { IReport } from "./reports";
+import { IReport, typeEnum } from "./reports";
 import autoTable from "jspdf-autotable";
 import dateTimeToReadble from "./common";
+import getChart from "./image";
 
-const generatePdf = (reports: IReport[]) => {
+const generatePdf = async (
+  reports: IReport[],
+  dataInicial = "Não informado",
+  dataFinal = "Não informado"
+) => {
   const doc = new jsPDF();
   const cleanedReports = reports?.map(
     ({ flags, description, type, recordDate }) => [
@@ -15,12 +20,24 @@ const generatePdf = (reports: IReport[]) => {
   );
 
   const flagsArray = reports?.map(({ flags }) => Number(flags));
-  const flagsQuantity = flagsArray.reduce((a, b) => a + b, 0).toString();
+  const flagsQuantity = flagsArray.reduce((a, b) => a + b, 0);
 
-  const result = [
+  const resultFlags = [
     flagsQuantity,
-    dateTimeToReadble(reports[0].recordDate),
-    dateTimeToReadble(reports[0].recordDate),
+    dateTimeToReadble(dataInicial),
+    dateTimeToReadble(dataFinal),
+  ];
+
+  const bugArray = reports?.filter(({ type }) => type === typeEnum.bug);
+  const prArray = reports?.filter(({ type }) => type === typeEnum.pr);
+
+  const prQuantity = prArray.length;
+  const bugQuantity = bugArray.length;
+  console.log({ bugArray });
+  const resultbug = [
+    bugQuantity,
+    dateTimeToReadble(dataInicial),
+    dateTimeToReadble(dataFinal),
   ];
 
   console.log(flagsArray);
@@ -40,8 +57,23 @@ const generatePdf = (reports: IReport[]) => {
 
   autoTable(doc, {
     head: [["Quantidade total de flags", "Data inicial", "Data final"]],
-    body: [result],
+    body: [resultFlags],
   });
+
+  autoTable(doc, {
+    head: [["Quantidade total de bugs", "Data inicial", "Data final"]],
+    body: [resultbug],
+  });
+
+  doc.addPage();
+
+  doc.addImage(
+    await getChart(bugQuantity, flagsQuantity, prQuantity),
+    16,
+    70,
+    200,
+    120
+  );
 
   doc.save("a4.pdf");
 };
