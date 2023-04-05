@@ -2,6 +2,7 @@ export interface IReport {
   description?: string;
   type: typeEnum;
   flags: number;
+  testCases: number;
   recordDate: number;
   id: string;
 }
@@ -10,6 +11,7 @@ export enum typeEnum {
   pr = "pull request",
   flag = "flag",
   bug = "bug",
+  testCase = "test case",
 }
 
 const apiUrl = "http://localhost:3000";
@@ -17,7 +19,7 @@ const apiUrl = "http://localhost:3000";
 class ReportService {
   static getReports = async (): Promise<IReport[]> => {
     const reports = await fetch(`${apiUrl}/reports`).then((res) => res.json());
-    console.log(reports);
+    console.log({ reports });
     return reports as unknown as IReport[];
   };
 

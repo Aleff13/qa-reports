@@ -121,6 +121,7 @@ export const EditReportDialog = ({
               <MenuItem value={typeEnum.pr}>Pull request</MenuItem>
               <MenuItem value={typeEnum.flag}>Flag</MenuItem>
               <MenuItem value={typeEnum.bug}>Bug</MenuItem>
+              <MenuItem value={typeEnum.testCase}>Test Case</MenuItem>
             </Select>
           </Box>
         </FormControl>

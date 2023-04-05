@@ -5,7 +5,14 @@ import { v4 as uuidv4 } from 'uuid';
 class ReportRepository {
   public async getAll() {
     const reports = await ReportSchema.scan()
-      .attributes(['id', 'description', 'flags', 'recordDate', 'type'])
+      .attributes([
+        'id',
+        'description',
+        'flags',
+        'recordDate',
+        'type',
+        'testCases',
+      ])
       .exec();
 
     return reports;

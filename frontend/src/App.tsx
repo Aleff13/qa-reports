@@ -97,6 +97,7 @@ const App = () => {
               type={report.type || typeEnum.pr}
               flags={report.flags}
               recordDate={report.recordDate}
+              testCases={report.testCases}
               key={report.id}
             ></ReportCard>
           ))}

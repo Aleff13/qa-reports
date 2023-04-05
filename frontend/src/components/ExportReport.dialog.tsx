@@ -27,7 +27,6 @@ export const ExportReportsDialog = ({
   };
 
   const onConfirm = async () => {
-    console.log(initialDate);
     if (initialDate === 0 || finalDate === 0) {
       generatePdf(reports);
       return;
@@ -37,7 +36,6 @@ export const ExportReportsDialog = ({
         report.recordDate >= new Date(initialDate).getTime() &&
         report.recordDate <= new Date(finalDate).getTime()
     );
-    console.log({ filteredResults });
     generatePdf(filteredResults, initialDate, finalDate);
   };
 

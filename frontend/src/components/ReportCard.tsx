@@ -31,7 +31,6 @@ const ReportCard = (report: IReport) => {
     location.reload();
   };
 
-  console.log({ report });
   return (
     <Card
       sx={{ width: 400, margin: 5, backgroundColor: "#080541" }}
@@ -42,10 +41,13 @@ const ReportCard = (report: IReport) => {
           {report.description}
         </Typography>
         <Typography variant="body2" color="white" sx={{ fontSize: 16 }}>
-          Tipo de registro: {report.type}
+          Tipo: {report.type}
         </Typography>
         <Typography variant="body2" color="white" sx={{ fontSize: 16 }}>
-          Quantidade de flags: {report.flags.toString()}
+          Flags: {report.flags.toString()}
+        </Typography>
+        <Typography variant="body2" color="white" sx={{ fontSize: 16 }}>
+          Test cases: {report.testCases}
         </Typography>
         <Typography variant="body2" color="white" sx={{ fontSize: 16 }}>
           Data da criação: {dateTimeToReadble(report.recordDate)}

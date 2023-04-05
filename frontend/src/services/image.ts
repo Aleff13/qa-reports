@@ -3,7 +3,8 @@ import QuickChart from "quickchart-js";
 const getChart = async (
   bugQuantity: number,
   flagsQuantity: number,
-  prQuantity: number
+  prQuantity: number,
+  testCasesQuantity: number
 ) => {
   const chart = new QuickChart();
 
@@ -16,16 +17,17 @@ const getChart = async (
     data: {
       datasets: [
         {
-          data: [bugQuantity, flagsQuantity, prQuantity],
+          data: [bugQuantity, flagsQuantity, prQuantity, testCasesQuantity],
           backgroundColor: [
             "rgb(255, 99, 132)",
             "rgb(255, 159, 64)",
             "rgb(255, 205, 86)",
+            "rgb(75, 192, 192)",
           ],
           label: "Dataset 1",
         },
       ],
-      labels: ["Bugs", "Flags", "Pull requests"],
+      labels: ["Bugs", "Flags", "Pull requests", "Test cases"],
     },
   });
 

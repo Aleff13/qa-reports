@@ -11,9 +11,10 @@ const generatePdf = async (
 ) => {
   const doc = new jsPDF();
   const cleanedReports = reports?.map(
-    ({ flags, description, type, recordDate }) => [
+    ({ flags, description, testCases, type, recordDate }) => [
       description,
       flags,
+      testCases,
       type,
       dateTimeToReadble(recordDate),
     ]
@@ -30,18 +31,24 @@ const generatePdf = async (
 
   const bugArray = reports?.filter(({ type }) => type === typeEnum.bug);
   const prArray = reports?.filter(({ type }) => type === typeEnum.pr);
+  const testCaseArray = reports.filter(
+    ({ type }) => type === typeEnum.testCase
+  );
 
   const prQuantity = prArray.length;
   const bugQuantity = bugArray.length;
-  console.log({ bugArray });
+  const testCaseQuantity = testCaseArray.length;
   const resultbug = [
     bugQuantity,
     dateTimeToReadble(dataInicial),
     dateTimeToReadble(dataFinal),
   ];
 
-  console.log(flagsArray);
-  console.log(flagsQuantity);
+  const resultTestCase = [
+    testCaseQuantity,
+    dateTimeToReadble(dataInicial),
+    dateTimeToReadble(dataFinal),
+  ];
 
   var startY = 0;
 
@@ -51,7 +58,9 @@ const generatePdf = async (
   };
 
   autoTable(doc, {
-    head: [["Descrição", "Flags", "Tipo", "Data da ocorrencia"]],
+    head: [
+      ["Descrição", "Flags", "Casos de teste", "Tipo", "Data da ocorrencia"],
+    ],
     body: cleanedReports,
   });
 
@@ -65,10 +74,17 @@ const generatePdf = async (
     body: [resultbug],
   });
 
+  autoTable(doc, {
+    head: [
+      ["Quantidade total de casos de teste", "Data inicial", "Data final"],
+    ],
+    body: [resultTestCase],
+  });
+
   doc.addPage();
 
   doc.addImage(
-    await getChart(bugQuantity, flagsQuantity, prQuantity),
+    await getChart(bugQuantity, flagsQuantity, prQuantity, testCaseQuantity),
     16,
     70,
     200,

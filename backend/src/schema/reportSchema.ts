@@ -20,6 +20,10 @@ const reportSchema = new dynamoose.Schema(
       type: Number,
       required: true,
     },
+    testCases: {
+      type: Number,
+      required: true,
+    },
     recordDate: {
       type: Number,
       required: true,

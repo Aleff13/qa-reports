@@ -24,6 +24,7 @@ export const AddReportDialog = ({ open, onClose }: SimpleDialogProps) => {
   const [description, setDescription] = useState<string>("");
   const [date, setDate] = useState<number>(new Date().getTime());
   const [flags, setFlags] = useState<number>();
+  const [testCases, setTestCases] = useState<number>();
 
   const handleTypeChange = (event: SelectChangeEvent) => {
     setType(event.target.value as string as typeEnum);
@@ -37,6 +38,10 @@ export const AddReportDialog = ({ open, onClose }: SimpleDialogProps) => {
     setFlags(event.target?.value || 0);
   };
 
+  const handleTestCasesChange = (event: ChangeEvent) => {
+    setTestCases(event.target?.value || 0);
+  };
+
   const handleDateChange = (event: ChangeEvent) => {
     setDate(event.target?.value || "");
   };
@@ -47,6 +52,7 @@ export const AddReportDialog = ({ open, onClose }: SimpleDialogProps) => {
       type,
       recordDate: new Date(date).getTime(),
       flags: Number(flags),
+      testCases: Number(testCases),
     };
     //call method to add report
     await ReportService.addReport(report);
@@ -83,6 +89,15 @@ export const AddReportDialog = ({ open, onClose }: SimpleDialogProps) => {
             onChange={handleFlagsChange}
             value={flags}
           />
+          <br></br>
+          <TextField
+            id="outlined-basic"
+            label="Test Cases"
+            variant="outlined"
+            type="number"
+            onChange={handleTestCasesChange}
+            value={testCases}
+          />
           <Box
             sx={{
               flexDirection: "row",
@@ -113,6 +128,7 @@ export const AddReportDialog = ({ open, onClose }: SimpleDialogProps) => {
               <MenuItem value={typeEnum.pr}>Pull request</MenuItem>
               <MenuItem value={typeEnum.flag}>Flag</MenuItem>
               <MenuItem value={typeEnum.bug}>Bug</MenuItem>
+              <MenuItem value={typeEnum.testCase}>Test Case</MenuItem>
             </Select>
           </Box>
         </FormControl>

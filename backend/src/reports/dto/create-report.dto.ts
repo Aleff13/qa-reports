@@ -16,6 +16,13 @@ export class CreateReportDto {
   flags: number;
 
   @ApiProperty({
+    description: 'test case quantity',
+    minimum: 240,
+    default: '',
+  })
+  testCases: number;
+
+  @ApiProperty({
     description: 'report type',
     minimum: 240,
     default: '',
